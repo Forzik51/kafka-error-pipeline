@@ -1,0 +1,17 @@
+spring:
+  application.name: log-producer
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      acks: all
+      retries: 10
+      properties:
+        enable.idempotence: true
+        max.in.flight.requiests.per.connection: 1
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+app:
+  topic: logs.raw
+
+server:
+  port: 8081

@@ -1,0 +1,23 @@
+spring:
+  application.name: log-filter
+  kafka:
+    bootstrap-servers: localhost:9092
+    streams:
+      application-id: log-filter-app
+      properties:
+        processing.guarantee: exactly_once_v2
+        commit.interval.ms: 100
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        spring.json.trusted.packages: "java.util,java.lang,com.proj.*"
+      state-dir: ./state
+    consumer:
+      group-id: log-filter-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+server:
+  port: 8083
+
+app:
+  input: logs.raw
+  output: alerts
+  dlt: alerts.dlt
